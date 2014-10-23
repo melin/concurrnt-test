@@ -1,20 +1,27 @@
 package com.github.melin.concurrnt.lock.task;
 
+import java.util.concurrent.CountDownLatch;
+
 import com.github.melin.concurrnt.lock.Counter;
-import com.github.melin.concurrnt.lock.MainTest;
 
 public class WriteTask implements Runnable {
+	private long count;
 	private Counter counter;
 	
-	public WriteTask(Counter counter) {
+	private CountDownLatch latch;
+	
+	public WriteTask(CountDownLatch latch, long count, Counter counter) {
+		this.latch = latch;
+		this.count = count;
 		this.counter = counter;
 	}
 
 	@Override
 	public void run() {
-		while(!MainTest.flag) {
-			//System.out.println(counter.getCounter());
-			counter.getCounter();
+		for(int i=0; i<count; i++) {
+			counter.increment(1);
 		}
+		
+		latch.countDown();
 	}
 }

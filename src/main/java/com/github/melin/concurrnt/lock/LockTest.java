@@ -1,5 +1,6 @@
 package com.github.melin.concurrnt.lock;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class LockTest implements Counter {
